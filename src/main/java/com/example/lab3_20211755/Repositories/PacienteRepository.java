@@ -13,5 +13,11 @@ public interface PacienteRepository extends JpaRepository<Paciente, Integer>  {
     @Query(nativeQuery = true, value = "SELECT * FROM paciente WHERE clinica_id = ?1")
     List<Paciente> findByClinicaId(Integer id);
 
+    @Query(nativeQuery = true, value = "SELECT * FROM paciente WHERE oftalmologo_id = ?1")
+    List<Paciente> findByOftalmologoId(Integer id);
+
+    @Query(nativeQuery = true, value = "SELECT * FROM paciente WHERE oftalmologo_id = ?1 AND fecha_cita > current_date()")
+    List<Paciente> findByOftalmologoIdCitas(Integer id);
+
 
 }
