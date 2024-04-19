@@ -9,10 +9,12 @@ import com.example.lab3_20211755.Repositories.PacienteRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping(value = {"/paciente"})
@@ -46,7 +48,22 @@ public class PacienteController {
     @GetMapping(value = "")
     public String editarNumHabitacion(@RequestParam("id") String id, Model model){
 
-        model.addAttribute("id",id);
-        return "Paciente/FormEditarHabitacion";
+        Optional<Paciente> optOftal = pacienteRepository.findById(Integer.parseInt(id));
+
+        if (optOftal.isPresent()) {
+            Paciente paciente = optOftal.get();
+            model.addAttribute("paciente",paciente);
+            return "Paciente/FormEditarHabitacion";
+        } else {
+            return "redirect:/paciente";
+        }
+
+    }
+
+    @PostMapping(value = "editarHabitacion")
+    public String editarEnDb(@RequestParam("pacienteId") String id,
+                             @RequestParam("pacienteNombre") String nombre,
+                             @RequestParam("numHabitacion") String numHabitacion  ){
+        return "redirect:/paciente";
     }
 }

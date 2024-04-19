@@ -32,32 +32,19 @@
 <div class="container mt-4">
     <div style="text-align: left;"><h1>Editar Paciente</h1></div>
 
-    <table class="table table-striped">
-        <tr>
-            <th>#</th>
-            <th>Nombre</th>
-            <th>Edad</th>
-            <th>Genero</th>
-            <th>Diagnostico</th>
-            <th>Fecha de Cita</th>
-            <th>Número de Habitación</th>
-            <th>Clínica</th>
-            <th>Oftalmologo</th>
-            <th></th>
-        </tr>
-        <tr th:each="paciente, obj: ${listaPacientes}">
-            <td th:text="${obj.index + 1}"></td>
-            <td th:text="${paciente.getNombre()}"></td>
-            <td th:text="${paciente.getEdad()}"></td>
-            <td th:text="${paciente.getGenero()}"></td>
-            <td th:text="${paciente.getDiagnostico()}"></td>
-            <td th:text="${paciente.getFechaCita()}"></td>
-            <td th:text="${paciente.getNumHabitacion()}"></td>
-            <td th:each="clinica: ${listaClinicas}" th:if="${clinica.getId() == paciente.getClinicaId()}" th:text="${clinica.getNombre()}"></td>
-            <td th:each="oftal: ${listaOftalmologos}" th:if="${oftal.getId() == paciente.getOftalmologoId()}" th:text="${oftal.getNombre()}"></td>
-            <td><a class="btn btn-success" th:href="@{'/paciente/editarNumHabitacion?id=' + ${paciente.getId()}}">Editar Habitación</a></td>
-        </tr>
-    </table>
+    <form method="post" th:action="@{'/paciente/editarHabitacion'}" class="col-4">
+        <input th:value="${paciente.getId()}" name="pacienteId" type="hidden" />
+        <div class="mb-3">
+            <label for="companyname" class="form-label">Nombre del paciente</label>
+            <input th:value="${paciente.getNombre()}" name="pacienteNombre" type="text" class="form-control" id="companyname" />
+        </div>
+        <div class="mb-3">
+            <label for="phone" class="form-label">Número de habitación</label>
+            <input th:value="${paciente.getNumHabitacion()}" name="numHabitacion" type="text" class="form-control" id="phone" />
+        </div>
+        <a th:href="@{'/paciente'}" class="btn btn-danger">Cancelar</a>
+        <button type="submit" class="btn btn-primary">Editar</button>
+    </form>
 </div>
 <div class="footer" style=" background-color: #dae0e8;">
     <div style="padding-top: 10px; padding-bottom: 10px;" class="container">
