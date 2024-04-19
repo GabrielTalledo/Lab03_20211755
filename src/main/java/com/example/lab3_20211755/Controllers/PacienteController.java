@@ -45,7 +45,7 @@ public class PacienteController {
         return "Paciente/Lista";
     }
 
-    @GetMapping(value = "")
+    @GetMapping(value = "/editarNumHabitacion")
     public String editarNumHabitacion(@RequestParam("id") String id, Model model){
 
         Optional<Paciente> optOftal = pacienteRepository.findById(Integer.parseInt(id));
@@ -60,7 +60,7 @@ public class PacienteController {
 
     }
 
-    @PostMapping(value = "editarHabitacion")
+    @PostMapping(value = "/editarHabitacion")
     public String editarEnDb(@RequestParam("pacienteId") String id,
                              @RequestParam("pacienteNombre") String nombre,
                              @RequestParam("numHabitacion") String numHabitacion  ){
